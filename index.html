@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>BMI</title>
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript">
+		$(function(){
+			var height = 0;
+			var weight = 0;
+			var BMI = 0;
+			var chartData = [];
+			var chartLabels = [];
+			var chartBgcolor = []
+			var  condition = $('#condition');
+			var arrow = $('#arrow')
+			getStorage();
+			drawChart();
+			// localStorage.clear();
+
+			function getStorage(){
+				if(localStorage.chartData != undefined){
+					chartData = localStorage.chartData.split(',');
+					console.log(localStorage.chartData);
+				}
+				if(localStorage.chartLabels != undefined){
+					chartLabels = localStorage.chartLabels.split(',');
+					console.log(localStorage.chartLabels);
+				}
+				if(localStorage.chartBgcolor != undefined){
+					chartBgcolor = localStorage.chartBgcolor.split(',');
+					console.log(localStorage.chartBgcolor);
+				}
+			}
+
+			$('#button').click(function(event) {
+				height = parseFloat($('#height').val())/100;
+				weight = parseFloat($('#weight').val());
+				BMI = (weight/(height*height)).toFixed(1);
+
+				chartData.push(BMI);
+				chartData = chartData.slice(-6);
+				var time = new Date();
+				chartLabels.push(time.getFullYear()+ '/' + (time.getMonth() + 1) +  '/' + time.getDate());
+				chartLabels = chartLabels.slice(-6);
+				showCondition();
+				drawChart();
+				localStorage.setItem("chartData", chartData);
+				localStorage.setItem("chartLabels", chartLabels);
+				localStorage.setItem("chartBgcolor", chartBgcolor);
+			});
+		
+
+			function drawChart(){
+				$('#mychart').remove();
+				$('.chart_container').append('<canvas class="mychart" id="mychart"></canvas>')
+				var ctx = document.getElementById('mychart').getContext('2d');
+				var chart = new Chart(ctx, {
+			    // The type of chart we want to create
+			    type: 'bar',
+			    // The data for our dataset
+			    data: {
+			        labels: chartLabels,
+			        datasets: [{
+			            label: "你的BMI历史记录",
+			            // backgroundColor: 'rgba(0,0,0,0)',
+			            backgroundColor: chartBgcolor,
+
+			            borderColor: 'blue',
+			            data: chartData,
+			        }]
+			    },
+			    // Configuration options go here
+			    options: {
+			    	maintainAspectRatio: false,
+			    	scales: {
+	           			yAxes: [{
+	               			 ticks: {
+	                    		beginAtZero:true
+	               			 }
+	           			 }]
+        			}
+			    }
+			});
+			};
+
+
+			function showCondition(){
+				// alert(BMI);
+				if(BMI<=18.4){
+					condition.css({backgroundColor: '#d0d0d0',});
+					arrow.css({top:'42px',})
+					chartBgcolor.push('#c0c0c0');
+				}
+				else if(BMI <=23.9){
+					condition.css({backgroundColor: '#98f9b7',});
+					arrow.css({top:'84px',})
+					chartBgcolor.push('#98f9b7');
+				}
+				else if(BMI <=27.9){
+					condition.css({backgroundColor: '#fcf8b3',});
+					arrow.css({top:'126px',})
+					chartBgcolor.push('#fcf8b3');
+				}
+				else{	
+					condition.css({backgroundColor: 'pink',});
+					arrow.css({top:'168px',})
+					chartBgcolor.push('pink');
+				}
+
+				chartBgcolor = chartBgcolor.slice(-6);
+				$('#bmi_val').html(BMI);
+				condition.fadeIn('slow/400/fast', function(){});;
+				arrow.fadeIn('slow/400/fast', function() {});
+			}
+		})
+	</script>
+
+</head>
+<body>
+	<div class="header">
+		<div class="header_bar">
+			<h2 class="logo">Body Mass Index</h2>
+			<ul>
+				<li><a href="">关于</a></li>
+				<li><a href="">博客</a></li>
+				<li><a href="">语言</a></li>
+			</ul>
+		</div>
+		<h2 class="title">
+			免费在线 BMI 计算器
+		</h2>
+		<p class="detail">
+			身体质量指数 (Body Mass Index, 简称BMI), 亦称克托莱指数, 是目前国际上常用的衡量人体胖瘦程度以及是否健康的一个标准。<br> BMI 值超标，意味着你必须减肥了。
+		</p>
+	</div>
+		<div class="middle clearfix">
+			<div class="big_box">
+				<div class="form_container clearfix">
+
+					<h4>计算你的身体质量指数 (BMI)</h4>
+					<div class="height ">
+						<span>你的身高</span>
+						<input type="text" name="" id="height">
+						<span>单位 CM</span>
+					</div>
+					<div class="weight" >
+						<span>你的体重</span>
+						<input type="text" name="" id="weight">
+						<span>单位 KG</span>
+					</div>
+					<input type="button" name="" value="计算" class="button" id="button">
+
+					<div class="condition" id="condition">
+						<p>
+							你的BMI值:
+							<span id="bmi_val"></span>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="big_box">
+				<div class="bmi_table_wrapper">
+					<table>
+						<tr><th>分类</th><th>BMI 范围</th></tr>
+						<tr><th>偏瘦</th><td><= 18.4</td></tr>
+						<tr><th>正常</th><td>18.5 ~ 23.9</td></tr>
+						<tr><th>过重</th><td>24.0 ~ 27.9</td></tr>
+						<tr><th>肥胖</th><td>>= 28.0</td></tr>
+						<div class="arrow" id="arrow"></div>
+					</table>
+				</div>	
+			</div>
+		</div>
+
+
+		<div class="chart_container">
+			<canvas class="mychart" id="mychart"></canvas>
+		</div>
+
+
+		<div class="footer">
+			<hr>
+			<ul>
+				<li>友情链接 <span>|</span></li>
+				<li><a href="https://www.liaoxuefeng.com/"  target="_blank">廖雪峰<span>|</span></a></li>
+				<li><a href="http://cn.onlinebmicalculator.com/"  target="_blank">在线BMI计算<span>|</span></a></li>
+				<li><a href="http://www.w3school.com.cn/index.html"  target="_blank";>W3school<span>|</span></a></li>
+				<li><a href="">关于我</a></li>
+			</ul>
+			<p> Design By Yangjiahao CopyRight © 2017 All Rights Reserved</p>
+		</div>
+	
+
+		
+
+	
+</body>
+</html>

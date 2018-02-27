@@ -1,0 +1,261 @@
+body{
+	font-family: 'Microsoft Yahei';
+	font-size: 14px;
+	font-weight: normal;
+		background-color: #ddd;
+}
+.header{
+	width:100%;
+	height:220px;
+	background-color: rgb(69,160,71);
+}
+
+.header_bar{
+	height: 50px;
+}
+.header_bar .logo{
+	float: left;
+	font-size: 20px;
+	color: #fff;
+	margin:30px 0 0 40px;
+}
+.header_bar li a{
+	float: right;
+	font-size: 14px;
+	line-height: 30px;
+	color: #fff;
+	margin:30px 40px 0 0;
+}
+.header .title{
+	font-size: 34px;
+	color:#fff;
+	margin:20px auto;
+	text-align: center;
+	text-shadow: -4px 4px 0px rgba(0,0,0,0.1);
+}
+.header .detail{
+	font-size: 16px;
+	color: #fff;
+	text-align: center;
+}
+/****************************/
+.middle{
+	/*height:300px;*/
+	/*background-color: #ddd;*/
+}
+.big_box{
+	float: left;
+	width:50%;
+}
+
+.form_container{
+	/*float: left;*/
+	display: block;
+	width:400px;
+	height: 300px;
+	/*margin-left: 100px;*/
+	margin:auto;
+	background-color: #ddd;
+}
+.form_container h4{
+	margin:40px 0 0 100px;
+}
+.form_container span{
+	margin-right:10px;
+	margin-left: 10px;
+}
+
+.form_container .height, .form_container .weight{
+	margin: 20px 0;
+}
+
+.height input, .weight input{
+	width:220px;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-sizing: border-box;
+    -webkit-appearance: textfield;
+    user-select: text;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+	margin-left: 10px;
+}
+.form_container .button{
+	width: 220px;
+	height: 34px;
+	display: inline-block;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 7px;
+    text-align: center;
+    white-space: nowrap;
+    /*vertical-align: middle;*/
+    cursor: pointer;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	color: #fff;
+	background-color: rgb(69,160,71);
+	border-color:  rgb(69,160,71);
+	margin-left: 90px;
+}
+
+.condition{
+	width:220px;
+	height: 35px;
+	background-color: pink;
+	display: none;
+	margin: 20px 0 0 90px;
+	line-height: 35px;
+	text-indent: 20px;
+}
+
+
+/***********************/
+.bmi_table_wrapper{
+	/*float: right;*/
+	display: block;
+	width:400px;
+	height: 300px;
+	margin:50px auto 0;
+	position:relative;
+}
+
+.bmi_table_wrapper table{
+	border-collapse: collapse;
+}
+.bmi_table_wrapper .arrow{
+	width: 40px;
+	height: 40px;
+	background: url(../images/622f78b3b368b1c5063aee8bd8d64713.png)  -78px -40px  no-repeat;
+	background-size: 400%;
+	position: absolute;
+	left:-50px;
+	top: 0px;
+	display: none;
+	animation: arrow_move 800ms  linear infinite alternate;
+} 
+
+@keyframes arrow_move{
+	from{
+		left:-45px;
+	}
+	to{
+		left:-35px;
+	}
+}
+
+.bmi_table_wrapper th, .bmi_table_wrapper td{
+	width: 200px;
+	height: 40px;
+	text-indent: 20px;
+	text-align: left;
+}
+.bmi_table_wrapper tr:nth-child(1){
+	background-color: #ffffff;
+} 
+.bmi_table_wrapper tr:nth-child(2){
+	background-color: #d0d0d0;
+}
+.bmi_table_wrapper tr:nth-child(3){
+	/*background-color: #d0ffd8;*/
+	background-color: #98f9b7;
+}
+.bmi_table_wrapper tr:nth-child(4){
+	background-color: #fcf8b3;
+}
+.bmi_table_wrapper tr:nth-child(5){
+	background-color: pink;
+}
+
+
+@media (max-width: 920px){
+		.big_box{
+			width: 100%;
+			float: none;
+		}
+}
+
+@media (max-width: 450px){
+	.header_bar li a{
+		font-size:12px;
+		margin:20px 10px 0 0;
+	}
+	.header_bar .logo{
+		margin:20px 0 0 20px;
+	}
+	.header .title{
+		font-size: 25px;
+		margin:20px auto;
+		text-shadow: -4px 4px 0px rgba(0,0,0,0.1);
+	}
+	.header .detail{
+		font-size: 12px;
+	}
+
+	.bmi_table_wrapper{
+		width:260px;
+		height: 300px;
+		margin:50px auto;
+	}
+	
+	.form_container{
+		width:320px;
+	}
+	.height input, .weight input{
+		width:180px;
+		margin-left: 0px;
+	}
+	.form_container span{
+	margin-right:5px;
+	margin-left: 5px;
+	}
+	.form_container .button,.form_container .condition {
+		width:180px;
+		margin-left: 68px;
+	}
+	.form_container h4{
+		margin:40px 0 0 90px;
+	}
+}
+
+
+.footer{
+	/*background-color: rgb(255,114,43);*/
+	text-align: center;
+/*	padding: 20px 0;*/
+	margin: 10px 0;
+}
+.footer li{
+	display: inline-block;
+	color:#333;
+}
+.footer li a, .footer p{
+	font:14px/24px 'Microsoft Yahei';
+	color:#333;
+}
+.footer span{
+	margin:0 5px;
+}
+.footer li a:hover{
+		color:#000;
+
+}
+
+.chart_container{
+	margin:0 auto;
+	width:80%;
+	height: 300px;
+}
